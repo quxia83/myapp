@@ -1,20 +1,16 @@
 #!/bin/bash
-
 set -x
 # Variables
 REPO_NAME="quxia/myapp"
-BUILDER_TAG="builder"
-APP_TAG="latest"
+TAG="latest"
 
-# Build the builder image
-docker build -t $REPO_NAME:$BUILDER_TAG -f ci/Dockerfile.builder .
+# Build the Docker image using the multi-stage Dockerfile
+docker build -t $REPO_NAME:$TAG .
 
-# Build the application image
-docker build -t $REPO_NAME:$APP_TAG -f ci/Dockerfile.app .
-
-# Docker Login (ensure this is secure in real use, possibly use secrets management)
+# Docker Login (Ensure this is secure in real use, possibly use secrets management)
+# Replace USERNAME and PASSWORD with your Docker Hub credentials
+# For CI/CD use, these should be securely provided by the environment or CI/CD system settings
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-# Push the images to a registry
-docker push $REPO_NAME:$BUILDER_TAG
-docker push $REPO_NAME:$APP_TAG
+# Push the image to a registry
+docker push $REPO_NAME:$TAG
