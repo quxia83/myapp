@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -x
 # Variables
 REPO_NAME="quxia/myapp"
 BUILDER_TAG="builder"
