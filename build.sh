@@ -3,12 +3,12 @@ set -x
 
 # Variables
 BUILD_DATE=$(date +%Y%m%d)
-BUILD_NUMBER=%build.number%
+BUILD_NUMBER=$BUILD_NUMBER
 
 REPO_NAME="quxia/myapp"
 
 # Tags
-TAG_DATE_BUILD="$REPO_NAME:$BUILD_DATE-$BUILD_NUMBER"
+TAG_DATE_BUILD="$REPO_NAME:$BUILD_NUMBER-$BUILD_DATE"
 TAG_LATEST="$REPO_NAME:latest"
 
 # Build the Docker image
