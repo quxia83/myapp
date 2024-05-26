@@ -1,17 +1,15 @@
-FROM node:14
+# Start from a clean, lightweight Node.js base image
+FROM node:14-alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set the working directory
+WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package*.json ./
-RUN npm install
-
-# Bundle app source
-COPY . .
+# Only copy the built artifacts and necessary files from the builder stage
+COPY --from=builder /app/build /app
+COPY --from=builder /app/node_modules /app/node_modules
 
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Command to run the app
-CMD [ "npm", "start" ]
+# Command to run the application
+CMD ["node", "index.js"]

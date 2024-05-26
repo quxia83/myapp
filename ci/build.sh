@@ -1,18 +1,19 @@
 #!/bin/bash
-set -x 
-# Fail script on error
-set -e
 
 # Variables
-DOCKER_IMAGE="quxia/myapp"
-BUILD_NUMBER=${BUILD_NUMBER:-latest}
+REPO_NAME="quxia/myapp"
+BUILDER_TAG="builder"
+APP_TAG="latest"
 
-# Build Docker Image
-echo "Building Docker image..."
-docker build -t $DOCKER_IMAGE:$BUILD_NUMBER .
+# Build the builder image
+docker build -t $REPO_NAME:$BUILDER_TAG -f Dockerfile.builder .
 
-# Push Docker Image
-echo "Pushing Docker image to Docker Hub..."
-docker push $DOCKER_IMAGE:$BUILD_NUMBER
+# Build the application image
+docker build -t $REPO_NAME:$APP_TAG -f Dockerfile.app .
 
-echo "Build and push completed successfully."
+# Docker Login (ensure this is secure in real use, possibly use secrets management)
+docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+
+# Push the images to a registry
+docker push $REPO_NAME:$BUILDER_TAG
+docker push $REPO_NAME:$APP_TAG
