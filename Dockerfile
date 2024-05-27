@@ -10,5 +10,6 @@ RUN npm run test
 FROM node:14-alpine
 WORKDIR /app
 COPY --from=builder /app/node_modules /app/node_modules
+COPY --from=builder /app /app
 EXPOSE 3000
 CMD ["node", "app.js"]  # Adjust the startup command as needed

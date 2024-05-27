@@ -3,7 +3,9 @@ set -x
 
 # Variables
 BUILD_DATE=$(date +%Y%m%d)
-BUILD_NUMBER=$BUILD_NUMBER
+if [ -z "$BUILD_NUMBER" ]; then
+    BUILD_NUMBER="local"
+fi
 
 REPO_NAME="quxia/myapp"
 
