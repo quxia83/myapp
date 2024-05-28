@@ -16,6 +16,8 @@ TAG_LATEST="$REPO_NAME:latest"
 # Build the Docker image
 docker build -t $TAG_DATE_BUILD -t $TAG_LATEST .
 
+export TAG_DATE_BUILD
+
 # Docker Login (Ensure this is secure in real use, possibly use secrets management)
 # Replace USERNAME and PASSWORD with your Docker Hub credentials
 # For CI/CD use, these should be securely provided by the environment or CI/CD system settings
